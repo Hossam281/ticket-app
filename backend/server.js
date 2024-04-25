@@ -1,1 +1,23 @@
-console.log('Server is running');
+const express = require('express');
+const dotenv = require('dotenv').config();
+const { errorHandler } = require("./middleware/errorMiddleware");
+const connectDB=require('./config/db')
+const userRoutes = require("./routes/userRoutes");
+const PORT = process.env.PORT || 6000;
+const app = express();
+
+connectDB()
+
+// Express middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Routes
+app.use('/api/users', userRoutes);
+
+// Error handler middleware
+app.use(errorHandler);
+
+app.get('/', (req, res) => res.send('Server is running'));
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
