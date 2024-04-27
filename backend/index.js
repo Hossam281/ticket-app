@@ -1,9 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
-const { errorHandler } = require("../middleware/errorMiddleware");
-const connect=require('../config/db')
-const userRoutes = require("../routes/userRoutes");
-const ticketRoutes = require("../routes/ticketRoutes");
+const { errorHandler } = require("./middleware/errorMiddleware");
+const connect=require('./config/db')
+const userRoutes = require("./routes/userRoutes");
+const ticketRoutes = require("./routes/ticketRoutes");
 const PORT = process.env.PORT || 6000;
 const app = express();
 
