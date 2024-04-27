@@ -34,3 +34,6 @@ This is a fullstack ticket web application that implements CRUD operations using
 - ```GET /api/tickets```: Get an authorized user tickets.
 - ```PUT /api/tickets/:id```: Update a ticket by ID.
 - ```DELETE /api/tickets/:id```: Delete a ticket by ID.
+
+# Live Demo:
+https://ticket-app-gilt.vercel.app/
