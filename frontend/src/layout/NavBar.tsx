@@ -28,21 +28,19 @@ const NavBar = () => {
     dispatch(logout());
     dispatch(reset());
     navigate("/");
-  }
+  };
+
   return (
-    <header className="flex items-center mb-4 p-3 border border-x-0 justify-between border-gray-600 shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-10 flex items-center p-3 border border-x-0 justify-between border-gray-600 shadow-md bg-white">
       <div>
         <Link to="/" className="text-sm md:text-2xl font-bold">
           Ticket App
         </Link>
       </div>
-      <ul className="flex text-sm  md:text-lg  gap-4">
+      <ul className="flex text-sm md:text-lg gap-4">
         {userSignedIn ? (
-          <li className="flex justify-center rounded-md hover:bg-slate-200 px-2 h-[40px] ">
-            <button
-              onClick={handleLogout}
-              className="flex items-center h-full"
-            >
+          <li className="flex justify-center border-black border bg-black text-white rounded-md hover:text-black hover:bg-slate-200 px-2 h-[40px] ">
+            <button onClick={handleLogout} className="flex items-center h-full">
               <FaPowerOff />
               <span className="ml-2">Logout</span>
             </button>
@@ -52,7 +50,7 @@ const NavBar = () => {
             return (
               <li
                 key={link.id}
-                className="flex justify-center rounded-md hover:bg-slate-200 px-2 h-[40px] "
+                className="flex justify-center border-black border bg-black text-white rounded-md hover:text-black hover:bg-slate-200 px-2 h-[40px] "
               >
                 <Link to={link.path} className="flex items-center h-full">
                   {link.icon}

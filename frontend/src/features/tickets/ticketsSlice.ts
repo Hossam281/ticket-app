@@ -1,0 +1,160 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import ticketsService from "./ticketsService";
+
+interface NewTicket {
+  user: string;
+  userName: string;
+  userEmail: string;
+  title: string;
+  description: string;
+  product: string;
+}
+
+const initialState = {
+  data: null,
+  userTickets: null,
+  ticket: null,
+  isLoading: false,
+};
+
+export const getAllTickets = createAsyncThunk(
+  "tickets/getAllTickets",
+  async (page: number, thunkAPI) => {
+    try {
+      const response = await ticketsService.getAllTickets(page);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message || error.toString());
+    }
+  }
+);
+export const updateTicket = createAsyncThunk(
+  "tickets/updateTicket",
+  async (ticketData: NewTicket, thunkAPI) => {
+    try {
+      const response = await ticketsService.updateTicket(ticketData);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message || error.toString());
+    }
+  }
+)
+export const deleteTicket = createAsyncThunk(
+  "tickets/deleteTicket",
+  async (id: string, thunkAPI) => {
+    try {
+      const response = await ticketsService.deleteTicket(id);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message || error.toString());
+    }
+  }
+)
+
+export const createTicket = createAsyncThunk(
+  "tickets/createTicket",
+  async (ticketData: any, thunkAPI) => {
+    try {
+      const response = await ticketsService.createTicket(ticketData);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message || error.toString());
+    }
+  }
+);
+
+export const getUserTickets = createAsyncThunk(
+  "tickets/getUserTickets",
+  async (_, thunkAPI) => {
+    try {
+      const response = await ticketsService.getUserTickets();
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message || error.toString());
+    }
+  }
+);
+
+export const getTicket = createAsyncThunk(
+  "tickets/getTicket",
+  async (id: string, thunkAPI) => {
+    try {
+      const response = await ticketsService.getTicket(id);
+      return response;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message || error.toString());
+    }
+  }
+)
+
+const ticketsSlice = createSlice({
+  name: "tickets",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllTickets.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllTickets.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(getAllTickets.rejected, (state) => {
+        state.isLoading = false;
+        state.data = null;
+      })
+      .addCase(createTicket.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createTicket.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(createTicket.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getUserTickets.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserTickets.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userTickets = action.payload;
+      })
+      .addCase(getUserTickets.rejected, (state) => {
+        state.isLoading = false;
+        state.userTickets = null;
+      })
+      .addCase(getTicket.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getTicket.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ticket = action.payload;
+      })
+      .addCase(getTicket.rejected, (state) => {
+        state.isLoading = false;
+        state.ticket = null;
+      })
+      .addCase(updateTicket.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateTicket.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateTicket.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteTicket.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteTicket.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteTicket.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+  },
+});
+
+export default ticketsSlice.reducer;

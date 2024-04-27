@@ -56,19 +56,27 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  const validatePassword = await bcrypt.compare(password, user.password);
-  if (user && validatePassword) {
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
-    });
-  } else {
+
+  if (!user) {
     res.status(400);
-    throw new Error("Invalid Credentials");
+    throw new Error("Invalid Email or Password");
   }
+
+  const validatePassword = await bcrypt.compare(password, user.password);
+
+  if (!validatePassword) {
+    res.status(400);
+    throw new Error("Invalid Email or Password");
+  }
+
+  res.status(200).json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    token: generateToken(user._id),
+  });
 });
+
 const getUser = (req, res) => {
     const { _id, name, email } = req.user;
     const user = { _id, name, email };
