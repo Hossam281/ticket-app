@@ -85,9 +85,8 @@ const getTicket = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("No Ticket Found");
   }
-  
+
   // Check if user exists
-  
 
   res.status(200).json(ticket);
 });
@@ -133,8 +132,8 @@ const createTicket = asyncHandler(async (req, res) => {
 
 // Update a ticket by ID
 const updateTicket = asyncHandler(async (req, res) => {
-  const ticket = await Ticket.findById(req.body.ticketID);
-  const { product, status } = req.body;
+  const ticket = await Ticket.findById(req.params.id);
+  const { product, status, description, title } = req.body;
   const productEnums = ["android", "ios", "web", "windows", "macos", "linux"];
   const validProduct = productEnums.includes(product);
   const statusEnums = ["new", "open", "closed"];
@@ -144,6 +143,18 @@ const updateTicket = asyncHandler(async (req, res) => {
   if (!validProduct) {
     res.status(400);
     throw new Error("Please select a valid product");
+  }
+
+  // Check if description is provided
+  if (!description) {
+    res.status(400);
+    throw new Error("Please add a description");
+  }
+
+  // Check if title is provided
+  if (!title) {
+    res.status(400);
+    throw new Error("Please add a title");
   }
 
   // Check if status is valid
@@ -195,7 +206,6 @@ const deleteTicket = asyncHandler(async (req, res) => {
 
   res.status(200).json({ success: true });
 });
-
 
 module.exports = {
   getTickets,

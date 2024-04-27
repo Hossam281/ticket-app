@@ -26,7 +26,7 @@ const Home = () => {
   }, [page]);
 
   return (
-    <div className="mt-14 min-h-screen w-full flex flex-col items-center bg-gray-50 px-4 sm:px-6 lg:px-8">
+    <div className="pt-14 min-h-screen w-full flex flex-col items-center  px-4 sm:px-6 lg:px-8">
       <div className="flex items-center flex-col w-full space-y-8">
         <div className="text-center md:text-3xl font-extrabold text-gray-900">
           How Can We Help?

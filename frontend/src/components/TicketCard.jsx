@@ -32,7 +32,7 @@ const TicketCard = ({ ticket, userID }) => {
   const handleEdit = () => {
     setIsOpen(true);
   }
-  const handleDelete = async (id) => {
+  const handleDelete =  (id) => {
      dispatch(deleteTicket(id));
     window.location.reload();
     toast.success("Ticket deleted successfully");

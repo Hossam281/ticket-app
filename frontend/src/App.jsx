@@ -15,7 +15,7 @@ const App = () => {
     <>
       <Router>
         <NavBar />
-        <div className="container mx-auto mt-[15vh] ">
+        <div className="container mx-auto pt-[15vh] ">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

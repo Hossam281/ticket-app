@@ -4,7 +4,7 @@ const { errorHandler } = require("./middleware/errorMiddleware");
 const connect=require('./config/db')
 const userRoutes = require("./routes/userRoutes");
 const ticketRoutes = require("./routes/ticketRoutes");
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 8000;
 const app = express();
 const cors = require('cors');
 
