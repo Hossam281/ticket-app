@@ -57,7 +57,6 @@ const NewTicket = () => {
       toast.error("Failed to create ticket");
     }
   };
-  console.log(formData, selectedProduct);
 
   return (
     <div className="mt-8 min-h-screen w-full md:w-[70%] p-4 mx-auto">
