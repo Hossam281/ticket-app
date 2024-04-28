@@ -3,13 +3,14 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getTicket } from "../features/tickets/ticketsSlice";
 import Spinner from "../components/Spinner";
-import { FaApple, FaWindows,  } from "react-icons/fa";
+import { FaApple, FaWindows } from "react-icons/fa";
 import { FcAndroidOs, FcLinux } from "react-icons/fc";
 import { BsGlobe2 } from "react-icons/bs";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import EditDialog from "../components/EditDialog";
 import { deleteTicket } from "../features/tickets/ticketsSlice";
+import { deleteObject } from "../features/client/clientSlice";
 import { useNavigate } from "react-router-dom";
 const Ticket = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,17 +22,19 @@ const Ticket = () => {
 
   const closeModal = () => {
     setIsOpen(false);
-  }
-  const handleDelete= async (id) => {
+  };
+  const handleDelete = async (id) => {
+    dispatch(deleteObject(id));
+
     dispatch(deleteTicket(id));
     navigate("/");
     toast.success("Ticket deleted successfully");
-  }
+  };
   useEffect(() => {
     if (ticketId) {
       dispatch(getTicket(ticketId));
     }
-  }, [ ticketId]);
+  }, [ticketId]);
 
   let statusColor = "";
   switch (ticket?.status) {
@@ -59,7 +62,11 @@ const Ticket = () => {
             <h2 className="text-3xl text-center mb-10 font-bold ">
               {ticket?.title}
             </h2>
-            <EditDialog  ticket={ticket} isOpen={isOpen} closeModal={closeModal}/>
+            <EditDialog
+              ticket={ticket}
+              isOpen={isOpen}
+              closeModal={closeModal}
+            />
 
             <div className="text-lg font-bold mb-2 flex items-center md:w-[30%] w-full justify-between">
               <span>Ticket ID:</span>
@@ -82,7 +89,7 @@ const Ticket = () => {
               {ticket?.product === "linux" && <FcLinux size={50} />}
               {ticket?.product === "web" && <BsGlobe2 size={40} />}
             </div>
-            
+
             <div className="text-lg font-bold mb-2 flex items-center md:w-[30%] w-full justify-between">
               <span>Status:</span>
               <span className={statusColor}>{ticket?.status}</span>
@@ -127,9 +134,9 @@ const Ticket = () => {
         )
       )}
       <div className="md:text-3xl mt-7 font-bold mb-2 flex gap-5 flex-col w-full ">
-              <span>Description:</span>
-              <p className="text-sm md:text-lg ">{ticket?.description}</p>
-            </div>
+        <span>Description:</span>
+        <p className="text-sm md:text-lg ">{ticket?.description}</p>
+      </div>
     </div>
   );
 };

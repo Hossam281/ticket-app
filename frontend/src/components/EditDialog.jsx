@@ -4,7 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { updateTicket } from "../features/tickets/ticketsSlice";
 import { toast } from "react-toastify";
-import { updateObject } from "../features/client/clientSlice";
+import { updateObject,  } from "../features/client/clientSlice";
 
 export default function EditDialog({ isOpen, closeModal, ticket }) {
   const dispatch = useDispatch();
