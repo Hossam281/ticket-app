@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon backend/index.js"
+    "start": "nodemon index.js"
   },
   "author": "Mohamed Hosam",
   "license": "MIT",
@@ -18,9 +18,6 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
-    "mongoose": "^8.3.2",
-    "react-icons": "^5.1.0",
-    "react-router-dom": "^6.23.0",
-    "react-toastify": "^10.0.5"
+    "mongoose": "^8.3.2"
   }
 }
