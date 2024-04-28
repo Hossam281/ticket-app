@@ -23,9 +23,10 @@ export const getAllTickets = createAsyncThunk(
 );
 export const updateTicket = createAsyncThunk(
   "tickets/updateTicket",
-  async (ticketData, thunkAPI) => {
+  async (ticketData,id, thunkAPI) => {
     try {
-      const response = await ticketsService.updateTicket(ticketData);
+      const token = thunkAPI.getState().auth.user.token;
+      const response = await ticketsService.updateTicket(ticketData, token,id);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message || error.toString());
@@ -36,7 +37,8 @@ export const deleteTicket = createAsyncThunk(
   "tickets/deleteTicket",
   async (id, thunkAPI) => {
     try {
-      const response = await ticketsService.deleteTicket(id);
+      const token = thunkAPI.getState().auth.user.token;
+      const response = await ticketsService.deleteTicket(id, token);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message || error.toString());
@@ -48,7 +50,8 @@ export const createTicket = createAsyncThunk(
   "tickets/createTicket",
   async (ticketData, thunkAPI) => {
     try {
-      const response = await ticketsService.createTicket(ticketData);
+      const token = thunkAPI.getState().auth.user.token;
+      const response = await ticketsService.createTicket(ticketData, token);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message || error.toString());
@@ -60,7 +63,8 @@ export const getUserTickets = createAsyncThunk(
   "tickets/getUserTickets",
   async (_, thunkAPI) => {
     try {
-      const response = await ticketsService.getUserTickets();
+      const token = thunkAPI.getState().auth.user.token;
+      const response = await ticketsService.getUserTickets(token);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message || error.toString());
@@ -72,7 +76,8 @@ export const getTicket = createAsyncThunk(
   "tickets/getTicket",
   async (id, thunkAPI) => {
     try {
-      const response = await ticketsService.getTicket(id);
+      const token = thunkAPI.getState().auth.user.token;
+      const response = await ticketsService.getTicket(id, token);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message || error.toString());

@@ -36,21 +36,18 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
 
     const ticketData = {
       ...formData,
-      _id: ticket._id,
       product: selectedProduct,
       status: status,
-      user: user._id,
-      userName: user.name,
-      userEmail: user.email,
     };
     try {
-      dispatch(updateTicket(ticketData));
+      dispatch(updateTicket(ticketData,ticket._id));
       toast.success("Ticket updated successfully");
       closeModal();
       window.location.reload();
       setFormData({
         title: "",
         product: selectedProduct,
+        status:status,
         description: "",
       });
     } catch (error) {

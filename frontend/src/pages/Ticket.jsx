@@ -31,7 +31,7 @@ const Ticket = () => {
     if (ticketId) {
       dispatch(getTicket(ticketId));
     }
-  }, [dispatch, ticketId]);
+  }, [ ticketId]);
 
   let statusColor = "";
   switch (ticket?.status) {

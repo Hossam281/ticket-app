@@ -37,6 +37,7 @@ const TicketCard = ({ ticket, userID }) => {
     window.location.reload();
     toast.success("Ticket deleted successfully");
   }
+  
   return (
     <div
       key={ticket._id}

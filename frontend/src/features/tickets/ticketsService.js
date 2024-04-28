@@ -1,14 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API_URL = import.meta.env.VITE_BASE_URL + "/api/tickets";
-
-const getUser =async () => {
-  return await JSON.parse(localStorage.getItem("user") || "{}");
-};
+const API_URL = import.meta.env.VITE_BASE_URL + "/api/tickets/";
 
 const getAllTickets = async (page) => {
-  const allUrl = `${API_URL}/all?page=${page}`;
+  const allUrl = `${API_URL}all?page=${page}`;
   try {
     const response = await axios.get(allUrl);
     return response.data;
@@ -18,31 +14,25 @@ const getAllTickets = async (page) => {
   }
 };
 
-const getUserTickets = async () => {
-  const userTicketsUrl = `${API_URL}`;
-  const user = getUser();
+const getUserTickets = async (token) => {;
   try {
-    const response = await axios.get(userTicketsUrl, {
+    const response = await axios.get(API_URL, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching user tickets:", error);
+    toast.error(error.message);
     throw error;
   }
 };
 
-const createTicket = async (ticketData) => {
-  const createTicketUrl = `${API_URL}`;
-  const user = getUser();
+const createTicket = async (ticketData, token) => {
   try {
-    const response = await axios.post(createTicketUrl, ticketData, {
+    const response = await axios.post(API_URL, ticketData, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     toast.success("Ticket created successfully");
@@ -53,14 +43,12 @@ const createTicket = async (ticketData) => {
   }
 };
 
-const getTicket = async (id) => {
-  const ticketUrl = `${API_URL}/${id}`;
-  const user = getUser();
+const getTicket = async (id, token) => {
+  const ticketUrl = `${API_URL}${id}`;
   try {
     const response = await axios.get(ticketUrl, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -70,15 +58,12 @@ const getTicket = async (id) => {
   }
 };
 
-const updateTicket = async (ticketData) => {
-  const { _id, ...data } = ticketData;
-  const ticketUrl = `${API_URL}/${_id}`;
-  const user = getUser();
+const updateTicket = async (ticketData, token, id) => {
+  const ticketUrl = `${API_URL}${id}`;
   try {
-    const response = await axios.put(ticketUrl, data, {
+    const response = await axios.put(ticketUrl, ticketData, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -88,14 +73,12 @@ const updateTicket = async (ticketData) => {
   }
 };
 
-const deleteTicket = async (id) => {
-  const ticketUrl = `${API_URL}/${id}`;
-  const user = getUser();
+const deleteTicket = async (id, token) => {
+  const ticketUrl = `${API_URL}${id}`;
   try {
     const response = await axios.delete(ticketUrl, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -113,4 +96,5 @@ const ticketsService = {
   updateTicket,
   deleteTicket,
 };
+
 export default ticketsService;
