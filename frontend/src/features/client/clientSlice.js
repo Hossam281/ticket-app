@@ -5,6 +5,7 @@ const clientSlice = createSlice({
   name: 'client',
   initialState: {
     clientData: [],
+    clientTicekt: {},
   },
   reducers: {
     setData(state, action) {
@@ -21,8 +22,11 @@ const clientSlice = createSlice({
       const objectId = action.payload;
       state.clientData = state.clientData.filter(obj => obj._id !== objectId);
     },
+    setClientTicket(state, action) {
+      state.clientTicket = action.payload;
+    }
   },
 });
 
-export const { setData, updateObject, deleteObject } = clientSlice.actions;
+export const { setData, updateObject, deleteObject ,setClientTicket} = clientSlice.actions;
 export default clientSlice.reducer;

@@ -4,20 +4,20 @@ import { FaChevronDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { updateTicket } from "../features/tickets/ticketsSlice";
 import { toast } from "react-toastify";
-import { updateObject,  } from "../features/client/clientSlice";
+import { updateObject ,setClientTicket} from "../features/client/clientSlice";
 
 export default function EditDialog({ isOpen, closeModal, ticket }) {
   const dispatch = useDispatch();
-  const [status, setStatus] = useState(ticket.status);
+  const [status, setStatus] = useState(ticket?.status);
   const [formData, setFormData] = useState({
-    title: ticket.title,
-    product: ticket.product,
-    description: ticket.description,
+    title: ticket?.title,
+    product: ticket?.product,
+    description: ticket?.description,
   });
 
   const products = ["android", "ios", "web", "windows", "macos", "linux"];
   const statusArray = ["new", "open", "closed"];
-  const [selectedProduct, setSelectedProduct] = useState(ticket.product);
+  const [selectedProduct, setSelectedProduct] = useState(ticket?.product);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -35,28 +35,15 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
 
     const ticketData = {
       ...formData,
+      ...ticket,
       product: selectedProduct,
       status: status,
-      userName: ticket.userName,
-      userEmail: ticket.userEmail,
-      createdAt: ticket.createdAt,
-      user: ticket.user,
-      _id: ticket._id,
     };
 
-    const clientTicketData = {
-      ...formData,
-      product: selectedProduct,
-      status: status,
-      userName: ticket.userName,
-      userEmail: ticket.userEmail,
-      createdAt: ticket.createdAt,
-      user: ticket.user,
-      _id: ticket._id,
-    };
     try {
       dispatch(updateTicket(ticketData));
-      dispatch(updateObject(clientTicketData));
+      dispatch(updateObject(ticketData));
+      dispatch(setClientTicket(ticketData));
       toast.success("Ticket updated successfully");
       closeModal();
       setFormData({
