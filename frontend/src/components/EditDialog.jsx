@@ -4,6 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { updateTicket } from "../features/tickets/ticketsSlice";
 import { toast } from "react-toastify";
+import { updateObject } from "../features/client/clientSlice";
 
 export default function EditDialog({ isOpen, closeModal, ticket }) {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
       [name]: value,
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.title || !selectedProduct || !formData.description) {
@@ -32,22 +33,38 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
       return;
     }
 
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-
     const ticketData = {
       ...formData,
       product: selectedProduct,
       status: status,
+      userName: ticket.userName,
+      userEmail: ticket.userEmail,
+      createdAt: ticket.createdAt,
+      user: ticket.user,
+    };
+
+    const clientTicketData = {
+      ...formData,
+      product: selectedProduct,
+      status: status,
+      userName: ticket.userName,
+      userEmail: ticket.userEmail,
+      createdAt: ticket.createdAt,
+      user: ticket.user,
+      _id: ticket._id,
     };
     try {
-      dispatch(updateTicket(ticketData,ticket._id));
+      const id = ticket._id;
+      console.log("ticketData:", clientTicketData);
+      console.log("id:", id);
+      dispatch(updateTicket(ticketData, id));
+      dispatch(updateObject(clientTicketData));
       toast.success("Ticket updated successfully");
       closeModal();
-      window.location.reload();
       setFormData({
         title: "",
         product: selectedProduct,
-        status:status,
+        status: status,
         description: "",
       });
     } catch (error) {
@@ -91,7 +108,7 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
                     </p>{" "}
                   </Dialog.Title>
                   <div className="mt-8  w-full p-4 mx-auto">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form className="space-y-6">
                       <div>
                         <label
                           htmlFor="title"
@@ -164,15 +181,10 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
                           </div>
                         </Listbox>
                         <label> Select Status</label>
-                        <Listbox
-                          value={status}
-                          onChange={setStatus}
-                        >
+                        <Listbox value={status} onChange={setStatus}>
                           <div className="relative mt-1">
                             <Listbox.Button className="relative border border-black w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                              <span className="block truncate">
-                                {status}
-                              </span>
+                              <span className="block truncate">{status}</span>
                               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                 <FaChevronDown />
                               </span>
@@ -236,6 +248,7 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
                       <div>
                         <button
                           type="submit"
+                          onClick={handleSubmit}
                           className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                           Submit
@@ -250,8 +263,6 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
                       </div>
                     </form>
                   </div>
-
-                  
                 </Dialog.Panel>
               </Transition.Child>
             </div>

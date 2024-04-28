@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { deleteTicket } from "../features/tickets/ticketsSlice";
+import { deleteObject } from "../features/client/clientSlice";
 
 const TicketCard = ({ ticket, userID }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,8 +34,8 @@ const TicketCard = ({ ticket, userID }) => {
     setIsOpen(true);
   }
   const handleDelete =  (id) => {
-     dispatch(deleteTicket(id));
-    window.location.reload();
+    dispatch(deleteTicket(id));
+    dispatch(deleteObject(id));
     toast.success("Ticket deleted successfully");
   }
   

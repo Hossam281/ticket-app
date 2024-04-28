@@ -6,6 +6,7 @@ import Spinner from "../components/Spinner";
 import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
 import List from "../components/List";
+import { setData } from "../features/client/clientSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const { data, isLoading } = useSelector((state => state.tickets));
   const { user } = useSelector((state => state.auth));
+  const { clientData } = useSelector((state => state.client));
   
   
 
@@ -24,6 +26,13 @@ const Home = () => {
   useEffect(() => {
     dispatch(getAllTickets(page));
   }, [page]);
+
+  useEffect(() => {
+    if (data&&data.data) {
+      dispatch(setData(data.data));
+    }
+  }, [data,page]);
+
 
   return (
     <div className="pt-14 min-h-screen w-full flex flex-col items-center  px-4 sm:px-6 lg:px-8">
@@ -58,7 +67,7 @@ const Home = () => {
           <h2 className="text-xl md:text-3xl font-extrabold self-start mb-4 mt-8 ">
             Tickets
           </h2>
-          <List data={data?.data} userID={user?._id} />
+          <List data={clientData} userID={user?._id} />
           <Pagination
             currentPage={page}
             totalPages={Math.ceil(data?.count / 30)}
