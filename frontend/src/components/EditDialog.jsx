@@ -34,8 +34,8 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
     }
 
     const ticketData = {
-      ...formData,
       ...ticket,
+      ...formData,
       product: selectedProduct,
       status: status,
     };
