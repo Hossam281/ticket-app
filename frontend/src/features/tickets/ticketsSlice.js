@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import ticketsService from "./ticketsService";
 
-
-
 const initialState = {
   data: null,
   userTickets: null,
@@ -23,16 +21,16 @@ export const getAllTickets = createAsyncThunk(
 );
 export const updateTicket = createAsyncThunk(
   "tickets/updateTicket",
-  async (ticketData,id, thunkAPI) => {
+  async (ticketData, id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      const response = await ticketsService.updateTicket(ticketData, token,id);
+      const response = await ticketsService.updateTicket(ticketData, token, id);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message || error.toString());
     }
   }
-)
+);
 export const deleteTicket = createAsyncThunk(
   "tickets/deleteTicket",
   async (id, thunkAPI) => {
@@ -44,7 +42,7 @@ export const deleteTicket = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.message || error.toString());
     }
   }
-)
+);
 
 export const createTicket = createAsyncThunk(
   "tickets/createTicket",
@@ -83,7 +81,7 @@ export const getTicket = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.message || error.toString());
     }
   }
-)
+);
 
 const ticketsSlice = createSlice({
   name: "tickets",
@@ -150,8 +148,7 @@ const ticketsSlice = createSlice({
       })
       .addCase(deleteTicket.rejected, (state) => {
         state.isLoading = false;
-      })
-
+      });
   },
 });
 
