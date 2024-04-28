@@ -41,6 +41,7 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
       userEmail: ticket.userEmail,
       createdAt: ticket.createdAt,
       user: ticket.user,
+      _id: ticket._id,
     };
 
     const clientTicketData = {
@@ -54,13 +55,12 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
       _id: ticket._id,
     };
     try {
-      const id = ticket._id;
-      console.log("ticketData:", clientTicketData);
-      console.log("id:", id);
-      dispatch(updateTicket(ticketData, id));
+      
+      dispatch(updateTicket(ticketData));
       dispatch(updateObject(clientTicketData));
       toast.success("Ticket updated successfully");
       closeModal();
+      window.location.reload();  
       setFormData({
         title: "",
         product: selectedProduct,

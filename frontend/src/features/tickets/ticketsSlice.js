@@ -21,9 +21,10 @@ export const getAllTickets = createAsyncThunk(
 );
 export const updateTicket = createAsyncThunk(
   "tickets/updateTicket",
-  async (ticketData, id, thunkAPI) => {
+  async (ticketData, thunkAPI  ) => {
+    const id = ticketData._id;
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = JSON.parse(localStorage.getItem("user")).token;
       const response = await ticketsService.updateTicket(ticketData, token, id);
       return response;
     } catch (error) {
@@ -31,6 +32,7 @@ export const updateTicket = createAsyncThunk(
     }
   }
 );
+
 export const deleteTicket = createAsyncThunk(
   "tickets/deleteTicket",
   async (id, thunkAPI) => {

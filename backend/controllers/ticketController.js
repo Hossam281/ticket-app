@@ -126,7 +126,7 @@ const createTicket = asyncHandler(async (req, res) => {
     description,
     status: "new",
   });
-
+  console.log("post Triggered");
   res.status(201).json(ticket);
 });
 
@@ -181,7 +181,7 @@ const updateTicket = asyncHandler(async (req, res) => {
     { ...req.body, status: req.body.status.toLowerCase() },
     { new: true }
   );
-
+  console.log("update Triggered");  
   res.status(200).json(updatedTicket);
 });
 

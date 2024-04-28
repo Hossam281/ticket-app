@@ -59,6 +59,7 @@ const getTicket = async (id, token) => {
 };
 
 const updateTicket = async (ticketData, token, id) => {
+  console.log(id);
   const ticketUrl = `${API_URL}${id}`;
   try {
     const response = await axios.put(ticketUrl, ticketData, {
@@ -66,6 +67,7 @@ const updateTicket = async (ticketData, token, id) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    //console.log(ticketData);
     return response.data;
   } catch (error) {
     toast.error(error.message);
