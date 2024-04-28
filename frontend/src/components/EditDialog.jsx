@@ -55,12 +55,10 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
       _id: ticket._id,
     };
     try {
-      
       dispatch(updateTicket(ticketData));
       dispatch(updateObject(clientTicketData));
       toast.success("Ticket updated successfully");
       closeModal();
-      window.location.reload();  
       setFormData({
         title: "",
         product: selectedProduct,
