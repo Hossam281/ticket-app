@@ -44,7 +44,6 @@ const Ticket = () => {
     }
   }, [ticket]);
 
-  
   return (
     <div className="min-h-screen gap-4 w-full flex flex-col mt-14 px-4 sm:px-6 lg:px-8">
       {isLoading ? (
@@ -56,7 +55,7 @@ const Ticket = () => {
               {clientTicket?.title}
             </h2>
             <EditDialog
-              ticket={clientTicket}
+              ticket={ticket}
               isOpen={isOpen}
               closeModal={closeModal}
             />
@@ -117,7 +116,7 @@ const Ticket = () => {
                   data-rounded="rounded-md"
                   data-primary="blue-600"
                   data-primary-reset="{}"
-                  onClick={() => handleDelete(clientTicket?._id)}
+                  onClick={() => handleDelete(ticket?._id)}
                 >
                   Delete
                 </button>
