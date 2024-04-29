@@ -36,7 +36,7 @@ This is a fullstack ticket web application that implements CRUD operations using
 - ``` POST /api/users/register```: Register a new user.
 - ```POST /api/users/login```: Login a user.
 - ```GET /api/tickets/all```: Get all tickets.
-- ```GET /api/tickets/:id```: Get a ticket by ID <span style="color: red;">(requires authorization)</span>.
+- ```GET /api/tickets/:id```: Get a ticket by ID $${\color{red}(requires authorization)}.
 - ```POST /api/tickets```: Create a new ticket <span style="color: red;">(requires authorization)</span>.
 - ```GET /api/tickets```: Get an authorized user tickets <span style="color: red;">(requires authorization)</span>.
 - ```PUT /api/tickets/:id```: Update a ticket by ID <span style="color: red;">(requires authorization)</span>.
