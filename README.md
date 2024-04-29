@@ -33,14 +33,14 @@ This is a fullstack ticket web application that implements CRUD operations using
 
 
 # API Endpoints
-- ``` POST /api/users/register```: Register a new user.
-- ```POST /api/users/login```: Login a user.
-- ```GET /api/tickets/all```: Get all tickets.
-- ```GET /api/tickets/:id```: Get a ticket by ID <code style="color: red;">(requires authorization)</code>.
-- ```POST /api/tickets```: Create a new ticket <code style="color: red;">(requires authorization)</code>.
-- ```GET /api/tickets```: Get an authorized user tickets <code style="color: red;">(requires authorization)</code>.
-- ```PUT /api/tickets/:id```: Update a ticket by ID <code style="color: red;">(requires authorization)</code>.
-- ```DELETE /api/tickets/:id```: Delete a ticket by ID <code style="color: red;">(requires authorization)</code>.
+- `POST /api/users/register`: Register a new user.
+- `POST /api/users/login`: Login a user.
+- `GET /api/tickets/all`: Get all tickets.
+- `GET /api/tickets/:id`: Get a ticket by ID **`(requires authorization)`**.
+- `POST /api/tickets`: Create a new ticket **`(requires authorization)`**.
+- `GET /api/tickets`: Get an authorized user tickets **`(requires authorization)`**.
+- `PUT /api/tickets/:id`: Update a ticket by ID **`(requires authorization)`**.
+- `DELETE /api/tickets/:id`: Delete a ticket by ID **`(requires authorization)`**.
 
 # Live Demo:
 https://ticket-app-gilt.vercel.app/
