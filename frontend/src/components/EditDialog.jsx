@@ -1,20 +1,20 @@
 import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTicket } from "../features/tickets/ticketsSlice";
 import { toast } from "react-toastify";
-import { updateObject ,setClientTicket} from "../features/client/clientSlice";
+import { updateObject, setClientTicket } from "../features/client/clientSlice";
 
 export default function EditDialog({ isOpen, closeModal, ticket }) {
   const dispatch = useDispatch();
+  const { clientTicket } = useSelector((state) => state.client);
   const [status, setStatus] = useState(ticket?.status);
   const [formData, setFormData] = useState({
-    title: ticket?.title,
-    product: ticket?.product,
-    description: ticket?.description,
+    title: clientTicket?.title,
+    product: clientTicket?.product,
+    description: clientTicket?.description,
   });
-
   const products = ["android", "ios", "web", "windows", "macos", "linux"];
   const statusArray = ["new", "open", "closed"];
   const [selectedProduct, setSelectedProduct] = useState(ticket?.product);
@@ -34,8 +34,8 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
     }
 
     const ticketData = {
-      ...formData,
       ...ticket,
+      ...formData,
       product: selectedProduct,
       status: status,
     };
@@ -44,7 +44,6 @@ export default function EditDialog({ isOpen, closeModal, ticket }) {
       dispatch(updateTicket(ticketData));
       dispatch(updateObject(ticketData));
       dispatch(setClientTicket(ticketData));
-      toast.success("Ticket updated successfully");
       closeModal();
       setFormData({
         title: "",

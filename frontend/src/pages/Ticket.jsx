@@ -25,12 +25,11 @@ const Ticket = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     dispatch(deleteObject(id));
 
     dispatch(deleteTicket(id));
     navigate("/");
-    toast.success("Ticket deleted successfully");
   };
   useEffect(() => {
     if (ticketId) {
@@ -122,13 +121,13 @@ const Ticket = () => {
                 </button>
               </div>
             )}
+            <div className="md:text-3xl mt-7 font-bold mb-2 flex gap-5 flex-col w-full ">
+              <span>Description:</span>
+              <p className="text-sm md:text-lg ">{clientTicket?.description}</p>
+            </div>
           </>
         )
       )}
-      <div className="md:text-3xl mt-7 font-bold mb-2 flex gap-5 flex-col w-full ">
-        <span>Description:</span>
-        <p className="text-sm md:text-lg ">{clientTicket?.description}</p>
-      </div>
     </div>
   );
 };

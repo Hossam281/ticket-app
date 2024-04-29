@@ -5,8 +5,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createTicket } from "../features/tickets/ticketsSlice";
-
-
+import { addObject } from "../features/client/clientSlice";
 
 const NewTicket = () => {
   const dispatch = useDispatch();
@@ -46,7 +45,8 @@ const NewTicket = () => {
     };
     try {
       dispatch(createTicket(ticketData));
-      toast.success("Ticket created successfully");
+      dispatch(addObject(ticketData));
+
       navigate("/");
       setFormData({
         title: "",
@@ -55,6 +55,7 @@ const NewTicket = () => {
       });
     } catch (error) {
       toast.error("Failed to create ticket");
+      console.log(error);
     }
   };
 

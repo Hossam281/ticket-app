@@ -12,12 +12,9 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useSelector((state => state.tickets));
-  const { user } = useSelector((state => state.auth));
-  const { clientData } = useSelector((state => state.client));
-  
-  
-
+  const { data, isLoading } = useSelector((state) => state.tickets);
+  const { user } = useSelector((state) => state.auth);
+  const { clientData } = useSelector((state) => state.client);
 
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
@@ -28,11 +25,10 @@ const Home = () => {
   }, [page]);
 
   useEffect(() => {
-    if (data&&data.data) {
-      dispatch(setData(data.data));
+    if (data ) {
+      dispatch(setData(data));
     }
-  }, [data,page]);
-
+  }, [data, page]);
 
   return (
     <div className="pt-14 min-h-screen w-full flex flex-col items-center  px-4 sm:px-6 lg:px-8">
@@ -62,18 +58,17 @@ const Home = () => {
       </div>
       {isLoading ? (
         <Spinner />
-      ) : data?.data?.length > 0 ? (
+      ) : clientData?.data?.length > 0 ? (
         <div className="w-full flex flex-col items-center">
           <h2 className="text-xl md:text-3xl font-extrabold self-start mb-4 mt-8 ">
             Tickets
           </h2>
-          <List data={clientData} userID={user?._id} />
+          <List data={clientData?.data} userID={user?._id} />
           <Pagination
             currentPage={page}
             totalPages={Math.ceil(data?.count / 30)}
             onPageChange={handlePageChange}
           />{" "}
-          
         </div>
       ) : (
         <p className="text-3xl font-extrabold mb-4 mt-8 "> No Tickets Found</p>

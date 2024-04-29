@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserTickets } from "../features/tickets/ticketsSlice";
+import { setData } from "../features/client/clientSlice";
 
 import Spinner from "../components/Spinner";
 import List from "../components/List";

@@ -4,7 +4,6 @@ import { BsGlobe2 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import EditDialog from "./EditDialog";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { deleteTicket } from "../features/tickets/ticketsSlice";
 import { deleteObject } from "../features/client/clientSlice";
@@ -21,9 +20,9 @@ const TicketCard = ({ ticket, userID }) => {
     setIsOpen(true);
   }
   const handleDelete =  (id) => {
-    dispatch(deleteTicket(id));
     dispatch(deleteObject(id));
-    toast.success("Ticket deleted successfully");
+    dispatch(deleteTicket(id));
+    
   }
   
   return (
